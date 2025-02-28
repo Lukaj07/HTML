@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Photo Gallery</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    figure {
+      margin: 0;
+      padding: 10px;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      width: calc(25% - 20px);
+      box-sizing: border-box;
+    }
+
+    figure:focus {
+      outline: 2px solid blue;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    figcaption {
+      text-align: center;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Interactive Photo Gallery</h1>
+  <div class="gallery" id="gallery">
+    <figure tabindex="0">
+      <img src="image1.jpg" alt="Description of image 1">
+      <figcaption>Caption for image 1</figcaption>
+    </figure>
+    <figure tabindex="0">
+      <img src="image2.jpg" alt="Description of image 2">
+      <figcaption>Caption for image 2</figcaption>
+    </figure>
+    <!-- Add more images as needed -->
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const gallery = document.getElementById('gallery');
+      const figures = gallery.getElementsByTagName('figure');
+
+      // Automatically add tabindex to figures
+      Array.from(figures).forEach((figure, index) => {
+        figure.setAttribute('tabindex', 0);
+      });
+
+      // Add event listeners for mouse and keyboard
+      Array.from(figures).forEach(figure => {
+        figure.addEventListener('mouseenter', () => {
+          figure.style.transform = 'scale(1.05)';
+          figure.style.transition = 'transform 0.3s';
+        });
+
+        figure.addEventListener('mouseleave', () => {
+          figure.style.transform = 'scale(1)';
+        });
+
+        figure.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            alert(`You selected: ${figure.querySelector('figcaption').textContent}`);
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
